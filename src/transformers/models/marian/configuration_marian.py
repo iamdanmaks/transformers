@@ -170,6 +170,72 @@ class MarianConfig(PretrainedConfig):
         )
 
 
+class MarianTopicConfig(MarianConfig):
+    def __init__(
+        self,
+        vocab_size=58101,
+        decoder_vocab_size=None,
+        max_position_embeddings=1024,
+        encoder_layers=12,
+        encoder_ffn_dim=4096,
+        encoder_attention_heads=16,
+        decoder_layers=12,
+        decoder_ffn_dim=4096,
+        decoder_attention_heads=16,
+        encoder_layerdrop=0.0,
+        decoder_layerdrop=0.0,
+        use_cache=True,
+        is_encoder_decoder=True,
+        activation_function="gelu",
+        d_model=1024,
+        dropout=0.1,
+        attention_dropout=0.0,
+        activation_dropout=0.0,
+        init_std=0.02,
+        decoder_start_token_id=58100,
+        classifier_dropout=0.0,
+        scale_embedding=False,
+        pad_token_id=58100,
+        eos_token_id=0,
+        forced_eos_token_id=0,
+        share_encoder_decoder_embeddings=True,
+        topic_embed_size=768, 
+        max_seq_len=128,
+        **kwargs
+    ):
+        super().__init__(
+            vocab_size=58101,
+            decoder_vocab_size=None,
+            max_position_embeddings=1024,
+            encoder_layers=12,
+            encoder_ffn_dim=4096,
+            encoder_attention_heads=16,
+            decoder_layers=12,
+            decoder_ffn_dim=4096,
+            decoder_attention_heads=16,
+            encoder_layerdrop=0.0,
+            decoder_layerdrop=0.0,
+            use_cache=True,
+            is_encoder_decoder=True,
+            activation_function="gelu",
+            d_model=1024,
+            dropout=0.1,
+            attention_dropout=0.0,
+            activation_dropout=0.0,
+            init_std=0.02,
+            decoder_start_token_id=58100,
+            classifier_dropout=0.0,
+            scale_embedding=False,
+            pad_token_id=58100,
+            eos_token_id=0,
+            forced_eos_token_id=0,
+            share_encoder_decoder_embeddings=True,
+            **kwargs
+        )
+        self.topic_embed_size = topic_embed_size
+        self.max_seq_len = max_seq_len
+
+
 class MarianOnnxConfig(OnnxSeq2SeqConfigWithPast):
     @property
     # Copied from transformers.models.bart.configuration_bart.BartOnnxConfig.inputs
