@@ -3315,7 +3315,10 @@ class GenerationMixin:
                 if this_peer_finished_flag.item() == 0.0:
                     break
 
+            print('Reached here')
+            print('Before inp: ', model_kwargs.keys())
             model_inputs = self.prepare_inputs_for_generation(input_ids, **model_kwargs)
+            print('Inp: ', model_inputs.keys())
 
             outputs = self(
                 **model_inputs,

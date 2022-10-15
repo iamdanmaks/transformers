@@ -1981,7 +1981,7 @@ class MarianMTModel(MarianPreTrainedModel):
         if past is not None:
             decoder_input_ids = decoder_input_ids[:, -1:]
 
-        return {
+        output = {
             "input_ids": None,  # encoder_outputs is defined. input_ids not needed
             "encoder_outputs": encoder_outputs,
             "past_key_values": past,
@@ -1992,6 +1992,11 @@ class MarianMTModel(MarianPreTrainedModel):
             "cross_attn_head_mask": cross_attn_head_mask,
             "use_cache": use_cache,  # change this to avoid caching (presumably for debugging)
         }
+
+        if kwargs.get('topic_embedding') is not None:
+            output['topic_embedding'] = kwargs.get('topic_embedding')
+
+        return output
 
     def prepare_decoder_input_ids_from_labels(self, labels: torch.Tensor):
         return shift_tokens_right(labels, self.config.pad_token_id, self.config.decoder_start_token_id)
