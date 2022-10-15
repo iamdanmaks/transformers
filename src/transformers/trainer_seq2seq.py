@@ -196,6 +196,8 @@ class Seq2SeqTrainer(Trainer):
             generation_inputs = inputs[self.model.encoder.main_input_name]
         else:
             generation_inputs = inputs[self.model.main_input_name]
+        
+        print('Initial kwargs: ', gen_kwargs.keys())
 
         generated_tokens = self.model.generate(
             generation_inputs,
