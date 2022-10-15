@@ -815,7 +815,7 @@ class MarianEncoder(MarianPreTrainedModel):
 class MarianTopicEncoder(MarianPreTrainedModel):
     def __init__(self, config: MarianConfig, embed_tokens: Optional[nn.Embedding] = None):
         super().__init__(config)
-        
+
         self.dropout = config.dropout
         self.layerdrop = config.encoder_layerdrop
 
@@ -852,6 +852,7 @@ class MarianTopicEncoder(MarianPreTrainedModel):
         # Style/topic embedding is also a 2D tensor with size (batch_size, style_embedding_size)
         # This concats the style embedding for each token in the encoder output
 
+        print('Enc output size: ', encoder_output.size())
         batch_size = encoder_output.size()[0]
         num_tokens = encoder_output.size()[1]
         
