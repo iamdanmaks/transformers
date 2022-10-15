@@ -813,7 +813,9 @@ class MarianEncoder(MarianPreTrainedModel):
 
 
 class MarianTopicEncoder(MarianPreTrainedModel):
-    def __init__(self, config: MarianTopicConfig):
+    def __init__(self, config: MarianConfig, embed_tokens: Optional[nn.Embedding] = None):
+        super().__init__(config)
+        
         self.dropout = config.dropout
         self.layerdrop = config.encoder_layerdrop
 
