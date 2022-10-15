@@ -29,7 +29,7 @@ from ...utils import (
 
 
 _import_structure = {
-    "configuration_marian": ["MARIAN_PRETRAINED_CONFIG_ARCHIVE_MAP", "MarianConfig", "MarianOnnxConfig"],
+    "configuration_marian": ["MARIAN_PRETRAINED_CONFIG_ARCHIVE_MAP", "MarianConfig", "MarianTopicConfig", "MarianOnnxConfig"],
 }
 
 try:
@@ -50,6 +50,8 @@ else:
         "MARIAN_PRETRAINED_MODEL_ARCHIVE_LIST",
         "MarianForCausalLM",
         "MarianModel",
+        "MarianTopicModel",
+        "MarianTopicMTModel",
         "MarianMTModel",
         "MarianPreTrainedModel",
     ]
@@ -71,7 +73,7 @@ else:
     _import_structure["modeling_flax_marian"] = ["FlaxMarianModel", "FlaxMarianMTModel", "FlaxMarianPreTrainedModel"]
 
 if TYPE_CHECKING:
-    from .configuration_marian import MARIAN_PRETRAINED_CONFIG_ARCHIVE_MAP, MarianConfig, MarianOnnxConfig
+    from .configuration_marian import MARIAN_PRETRAINED_CONFIG_ARCHIVE_MAP, MarianConfig, MarianTopicConfig, MarianOnnxConfig
 
     try:
         if not is_sentencepiece_available():
@@ -91,6 +93,8 @@ if TYPE_CHECKING:
             MARIAN_PRETRAINED_MODEL_ARCHIVE_LIST,
             MarianForCausalLM,
             MarianModel,
+            MarianTopicModel,
+            MarianTopicMTModel,
             MarianMTModel,
             MarianPreTrainedModel,
         )

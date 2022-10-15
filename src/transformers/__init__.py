@@ -1530,7 +1530,7 @@ else:
             "M2M100PreTrainedModel",
         ]
     )
-    _import_structure["models.marian"].extend(["MarianForCausalLM", "MarianModel", "MarianTopicMTModel", "MarianMTModel"])
+    _import_structure["models.marian"].extend(["MarianForCausalLM", "MarianModel", "MarianTopicModel", "MarianTopicMTModel", "MarianMTModel"])
     _import_structure["models.maskformer"].extend(
         [
             "MASKFORMER_PRETRAINED_MODEL_ARCHIVE_LIST",
