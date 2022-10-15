@@ -263,7 +263,7 @@ _import_structure = {
     "models.luke": ["LUKE_PRETRAINED_CONFIG_ARCHIVE_MAP", "LukeConfig", "LukeTokenizer"],
     "models.lxmert": ["LXMERT_PRETRAINED_CONFIG_ARCHIVE_MAP", "LxmertConfig", "LxmertTokenizer"],
     "models.m2m_100": ["M2M_100_PRETRAINED_CONFIG_ARCHIVE_MAP", "M2M100Config"],
-    "models.marian": ["MarianConfig"],
+    "models.marian": ["MarianConfig", "MarianTopicConfig"],
     "models.markuplm": [
         "MARKUPLM_PRETRAINED_CONFIG_ARCHIVE_MAP",
         "MarkupLMConfig",
@@ -1530,7 +1530,7 @@ else:
             "M2M100PreTrainedModel",
         ]
     )
-    _import_structure["models.marian"].extend(["MarianForCausalLM", "MarianModel", "MarianMTModel"])
+    _import_structure["models.marian"].extend(["MarianForCausalLM", "MarianModel", "MarianTopicMTModel", "MarianMTModel"])
     _import_structure["models.maskformer"].extend(
         [
             "MASKFORMER_PRETRAINED_MODEL_ARCHIVE_LIST",
@@ -3293,6 +3293,7 @@ if TYPE_CHECKING:
     from .models.lxmert import LXMERT_PRETRAINED_CONFIG_ARCHIVE_MAP, LxmertConfig, LxmertTokenizer
     from .models.m2m_100 import M2M_100_PRETRAINED_CONFIG_ARCHIVE_MAP, M2M100Config
     from .models.marian import MarianConfig
+    from .models.marian import MarianTopicConfig
     from .models.markuplm import (
         MARKUPLM_PRETRAINED_CONFIG_ARCHIVE_MAP,
         MarkupLMConfig,
@@ -4342,7 +4343,7 @@ if TYPE_CHECKING:
             M2M100Model,
             M2M100PreTrainedModel,
         )
-        from .models.marian import MarianForCausalLM, MarianModel, MarianMTModel
+        from .models.marian import MarianForCausalLM, MarianModel, MarianTopicMTModel, MarianMTModel
         from .models.markuplm import (
             MARKUPLM_PRETRAINED_MODEL_ARCHIVE_LIST,
             MarkupLMForQuestionAnswering,
