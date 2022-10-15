@@ -185,7 +185,7 @@ class Seq2SeqTrainer(Trainer):
         if "attention_mask" in inputs:
             gen_kwargs["attention_mask"] = inputs.get("attention_mask", None)
         if "topic_embedding" in inputs:
-            gen_kwargs["attention_mask"] = inputs.get("attention_mask", None)
+            gen_kwargs["topic_embedding"] = inputs.get("topic_embedding", None)
         if "global_attention_mask" in inputs:
             gen_kwargs["global_attention_mask"] = inputs.get("global_attention_mask", None)
 
