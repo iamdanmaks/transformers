@@ -515,7 +515,7 @@ class GenerationMixin:
         encoder = self.get_encoder()
 
         # 2. prepare encoder args and encoder kwargs from model kwargs
-        irrelevant_prefix = ["decoder_", "cross_attn", "use_cache"]
+        irrelevant_prefix = ["decoder_", "cross_attn", "use_cache", "topic_embedding"]
         encoder_kwargs = {
             argument: value
             for argument, value in model_kwargs.items()
@@ -592,6 +592,9 @@ class GenerationMixin:
 
         if attention_mask is not None:
             model_kwargs["attention_mask"] = attention_mask.index_select(0, expanded_return_idx)
+        
+        if model_kwargs["topic_embedding"] is not None:
+            model_kwargs["topic_embedding"] = model_kwargs["topic_embedding"].index_select(0, expanded_return_idx)
 
         if is_encoder_decoder:
             if encoder_outputs is None:
