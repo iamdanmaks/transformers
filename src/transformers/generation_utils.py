@@ -578,7 +578,8 @@ class GenerationMixin:
         expand_size: int = 1,
         is_encoder_decoder: bool = False,
         attention_mask: Optional[torch.LongTensor] = None,
-        encoder_outputs: Optional[ModelOutput] = None,
+        topic_embedding: Optional[torch.LongTensor] = None,
+        encoder_outputs: Optional[ModelOutput] = None, 
         **model_kwargs,
     ) -> Tuple[torch.LongTensor, Dict[str, Any]]:
         expanded_return_idx = (
@@ -593,8 +594,8 @@ class GenerationMixin:
         if attention_mask is not None:
             model_kwargs["attention_mask"] = attention_mask.index_select(0, expanded_return_idx)
         
-        if model_kwargs["topic_embedding"] is not None:
-            model_kwargs["topic_embedding"] = model_kwargs["topic_embedding"].index_select(0, expanded_return_idx)
+        if topic_embedding is not None:
+            model_kwargs["topic_embedding"] = topic_embedding.index_select(0, expanded_return_idx)
 
         if is_encoder_decoder:
             if encoder_outputs is None:
@@ -1472,6 +1473,8 @@ class GenerationMixin:
             input_ids, model_kwargs = self._expand_inputs_for_generation(
                 input_ids, expand_size=num_beams, is_encoder_decoder=self.config.is_encoder_decoder, **model_kwargs
             )
+            print('After expansion: ', model_kwargs.keys())
+            print(model_kwargs['topic_embedding'].size())
             # 12. run beam search
             return self.beam_search(
                 input_ids,
