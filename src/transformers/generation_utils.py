@@ -426,8 +426,7 @@ class GenerationMixin:
             input_name = self.main_input_name
 
         model_kwargs = {k: v for k, v in model_kwargs.items() if v is not None or k != input_name}
-        print('Model kwargs: ', model_kwargs.keys())
-
+        
         # 2. check whether model_input_name is passed as kwarg
         # if yes and `inputs` is None use kwarg inputs
         inputs_kwarg = model_kwargs.pop(input_name, None)
@@ -1266,8 +1265,6 @@ class GenerationMixin:
             model_kwargs["attention_mask"] = self._prepare_attention_mask_for_generation(
                 inputs_tensor, pad_token_id, eos_token_id
             )
-        
-        print('Model KWARGs: ',  model_kwargs.keys())
 
         # decoder-only models should use left-padding for generation
         if not self.config.is_encoder_decoder:
@@ -1280,11 +1277,9 @@ class GenerationMixin:
         if self.config.is_encoder_decoder and "encoder_outputs" not in model_kwargs:
             # if model is encoder decoder encoder_outputs are created
             # and added to `model_kwargs`
-            print('Model kwargs before enc: ', model_kwargs.keys())
             model_kwargs = self._prepare_encoder_decoder_kwargs_for_generation(
                 inputs_tensor, model_kwargs, model_input_name
             )
-            print('Model kwargs enc: ', model_kwargs.keys())
 
         # 4. Prepare `input_ids` which will be used for auto-regressive generation
         if self.config.is_encoder_decoder:
@@ -1469,12 +1464,9 @@ class GenerationMixin:
                 num_beam_hyps_to_keep=num_return_sequences,
             )
             # 11. interleave input_ids with `num_beams` additional sequences per batch
-            print('Before expansion: ', model_kwargs.keys())
             input_ids, model_kwargs = self._expand_inputs_for_generation(
                 input_ids, expand_size=num_beams, is_encoder_decoder=self.config.is_encoder_decoder, **model_kwargs
             )
-            print('After expansion: ', model_kwargs.keys())
-            print(model_kwargs['topic_embedding'].size())
             # 12. run beam search
             return self.beam_search(
                 input_ids,
@@ -1802,11 +1794,8 @@ class GenerationMixin:
                     break
 
             # prepare model inputs
-            print('Reached here')
-            print('Before inp: ', model_kwargs.keys())
             model_inputs = self.prepare_inputs_for_generation(input_ids, **model_kwargs)
-            print('Inp: ', model_inputs.keys())
-
+            
             # forward pass to get next token
             outputs = self(
                 **model_inputs,
@@ -3315,11 +3304,8 @@ class GenerationMixin:
                 if this_peer_finished_flag.item() == 0.0:
                     break
 
-            print('Reached here')
-            print('Before inp: ', model_kwargs.keys())
             model_inputs = self.prepare_inputs_for_generation(input_ids, **model_kwargs)
-            print('Inp: ', model_inputs.keys())
-
+            
             outputs = self(
                 **model_inputs,
                 return_dict=True,
