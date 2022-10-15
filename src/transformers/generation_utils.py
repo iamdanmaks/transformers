@@ -1802,7 +1802,9 @@ class GenerationMixin:
                     break
 
             # prepare model inputs
+            print('Before inp: ', model_kwargs.keys())
             model_inputs = self.prepare_inputs_for_generation(input_ids, **model_kwargs)
+            print('Inp: ', model_inputs.keys())
 
             # forward pass to get next token
             outputs = self(
